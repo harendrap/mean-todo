@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    App Login Page
+  </title>
+
+  <!-- Font Awesome -->
+    <link rel="stylesheet" href="/vendors/font-awesome/css/font-awesome.css">
+    <!-- Bootstrap Files -->
+    <link rel="stylesheet" href="/vendors/bootstrap/dist/css/bootstrap.css">
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/resources/css/styles.css">
+</head>
+<body class="login">
+  <div class="container">
+    <div class="row">
+      <div class="login-col">
+        <img class="todo-logo" src="resources/img/ext.jpg" alt="todo-logo">
+        <form class="form-signin" action="/login" method="post">
+            <label for="client-id" class="sr-only">Client ID</label>
+            <span class="fa fa-group"></span>
+            <input type="text" name="client id" id="client id" class="form-control" placeholder="Client ID" required autofocus>
+
+          <label for="username" class="sr-only">Username</label>
+          <span class="fa fa-user"></span>
+          <input type="text" name="username" id="username" class="form-control" placeholder="Username" required autofocus>
+          
+          <label for="password" class="sr-only">Password</label>
+          <span class="fa fa-lock"></span>
+          <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+          
+          <button class="btn btn-lg btn-primary btn-block" type="submit">SUBMIT</button>
+        </form>
+
+        <% for(var i in messages) { %>
+          <div class="flash">
+            <%= messages[i] %>
+          </div>
+        <% } %>
+
+          <div class="row">
+              <div class="switch text-center">
+                  Forget Password? <a href="/signup">Click here</a>
+              </div>
+          </div>
+
+        <div class="row">
+          <div class="switch text-center">
+            Don't have an account? <a href="/signup">Create Account</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- Container -->
+</div>
+</body>
+</html>

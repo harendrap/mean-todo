@@ -1,0 +1,89 @@
+<div ng-controller="MainController as Main">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <!-- Brand and toggle grouped for better mobile display -->
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#page-top" class="navbar-brand">HOME</a>
+      </div>
+
+      <!-- Collect nav links, forms, etc for toggling -->
+      <div id="bs-example-navbar-collapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="hidden">
+            <a href="#page-top"></a>
+          </li>
+          <li class="page-scroll" ng-show="!Main.authentication.user">
+            <a href="/login" target="_self">Sign In</a>
+          </li>
+          <li class="page-scroll" ng-show="!Main.authentication.user">
+            <a href="/signup" target="_self">Register</a>
+          </li>
+          <li class="page-scroll" ng-show="Main.authentication.user">
+            <a href="/todos">My Mappings</a>
+          </li>
+          <li class="page-scroll" ng-show="Main.authentication.user">
+            <a href="/logout" target="_self">Hello <span ng-bind="Main.authentication.user.username" ng-show="Main.authentication.user"></span>, Logout?</a>
+          </li>
+        </ul>
+      </div> <!-- Navbar Collapse -->
+    </div> <!-- Container -->
+  </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6">
+              <!-- <img class="img-responsive" src="img/profile.png" alt=""> -->
+              <div class="intro-text">
+                <span class="name">FHIR HL7 Translator</span>
+                <hr class="line-light">
+                <p class="skills">FHIR is the next generation messaging standards by HL7 Organization</p>
+                <p class="skills description">FHIR HL7v2 Translator needs will solve your integration pain</p>
+                <div class="cta">
+                  <a class="button" href="/signup" target="_self">Register</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </header>
+
+<!--     <section id="about" ng-show="Main.authentication.user">
+        <div class="container">
+        <ul>
+        <h3>
+          <li><a href="/todos">List Mappings</a></li>
+        </h3>
+        
+        <h3>
+          <li><a href="/todos/create">Create New Mapping</a></li>
+        </h3>
+      </ul>        
+        </div>
+    </section> -->
+
+    <!-- About Section -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>About FHIR-HL7 Translator</h2>
+                    <hr class="line-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <p class="text-center">FHIR-HL7 Translator is an application for managing your integration translations, front end built on top of the MEAN stack. </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>

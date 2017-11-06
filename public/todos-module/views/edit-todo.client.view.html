@@ -1,0 +1,136 @@
+<div ng-controller="TodosController as Todos">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <!-- Brand and toggle grouped for better mobile display -->
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#page-top" class="navbar-brand">Edit</a>
+      </div>
+
+      <!-- Collect nav links, forms, etc for toggling -->
+      <div id="bs-example-navbar-collapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="hidden">
+            <a href="#page-top"></a>
+          </li>
+          <li class="page-scroll" ng-show="!Todos.authentication.user">
+            <a href="/login" target="_self">Login</a>
+          </li>
+          <li class="page-scroll" ng-show="!Todos.authentication.user">
+            <a href="/signup" target="_self">Register</a>
+          </li>
+          <li class="page-scroll" ng-show="Todos.authentication.user">
+            <a href="/todos">My Mappings</a>
+          </li>
+          <li class="page-scroll" ng-show="Todos.authentication.user">
+            <a href="/logout" target="_self">Hello <span ng-bind="Todos.authentication.user.username" ng-show="Todos.authentication.user"></span>, Logout?</a>
+          </li>
+        </ul>
+      </div> <!-- Navbar Collapse -->
+    </div> <!-- Container -->
+  </nav>
+
+  <section ng-init="Todos.findOne()" class="container">
+    <h1>Edit Mapping</h1>
+    <form class="form-signin" ng-submit="Todos.update()" novalidate>
+      <div class="form-group">
+        <label for="title">Mapping name </label>
+
+          <input type="text" ng-model="Todos.todo.title" id="title" Placeholder="Mapping Name" required autofocus >
+
+      </div>
+
+      <div>
+
+
+        <label>Edit existing Child Mappings</label>
+        <div ng-repeat="mapping in Todos.todo.mappings track by $index" class="form-group">
+          <input type="text"
+                 ng-model='Todos.todo.mappings[$index].hl7'  placeholder="map hl7 to fhir" >
+          <label> = </label>
+          <input type="text"
+                 ng-model='Todos.todo.mappings[$index].fhir'  placeholder="map hl7 to fhir" >
+        </div>
+
+
+
+      </div>
+
+
+
+      <div class="form-group">
+Check to map more
+  <input type="checkbox" value="Check to map more" ng-click="showIngredientForm = !showIngredientForm" ng-class="{'red' : showIngredientForm}"></input>
+
+     <div  ng-show="showIngredientForm">
+      <div ng-repeat="formToAdd in formsToAdd track by formToAdd.hl7field" >
+
+      <ng-form name="mappingForm">
+
+        <div >
+          <label>New Child mapping</label>
+
+          <select ng-model="formToAdd.hl7segment" ng-options="key as key for (key, val) in hl7array" >
+            <option value="">Select HL7 Segment</option>
+          </select>
+          <select ng-model="formToAdd.hl7field" ng-options="value for value in hl7array[formToAdd.hl7segment]" ng-change="verifyDuplicateForm()">
+            <option value="">Select HL7 Field</option>
+          </select>
+
+
+          <select ng-model="formToAdd.resource" ng-options="key as key for (key, val) in fhirarray" >
+            <option value="">Select FHIR resource</option>
+          </select>
+          <select ng-model="formToAdd.fhirfield" ng-options="value for value in fhirarray[formToAdd.resource]" >
+            <option value="">Select FHIR Field</option>
+          </select>
+          <button ng-click="removeForm(formToAdd)" ng-if="formsToAdd.length > 1">Remove</button>
+          <div class="validation_messages" ng-if='formToAdd.isDuplicateForm'>
+            <span>Duplicate Mapping Not Allowed</span>
+          </div>
+          <h5 ng-if="formToAdd.hl7field">{{formToAdd.hl7field}}  =  {{formToAdd.fhirfield}} </h5>
+        </div>
+      </ng-form>
+
+
+
+    </div>
+    <div>
+      <input type="button" class="validation_messages" value="Add new child mapping" ng-click="addForm(formToAdd)"></input>
+    </div>
+  </div>
+      </div>
+      <div>
+  <button class="btn btn-lg btn-primary btn-block">Save Mapping</button>
+      </div>
+      <div ng-show="Todos.error">
+        <strong ng-bind="Todos.error"></strong>
+      </div>
+      <div>
+        <select ng-model="segment" ng-options="key as key for (key, val) in hl7array" >
+          <option value="">Select HL7 Segment</option>
+        </select>
+        <select ng-model="hl7field" ng-options="value for value in hl7array[segment]" ng-change="updatehl7(hl7field)">
+          <option value="">Select HL7 Field</option>
+        </select>
+        maps to
+        <select ng-model="resource" ng-options="key as key for (key, val) in fhirarray" >
+          <option value="">Select FHIR resource</option>
+        </select>
+        <select ng-model="fhirfield" ng-options="value for value in fhirarray[resource]" ng-change="updatemap(hl7field,fhirfield)">
+          <option value="">Select FHIR Field</option>
+        </select>
+      </div>
+      <div>
+        <h5>
+           {{hl7field}} = {{fhirfield}}
+        </h5>
+      </div>
+    </form>
+  </section>
+</div>
